@@ -71,14 +71,14 @@ def compute_implementation_shortfall(
         return df
 
     # Compute Implementation Shortfall
-    df["IS"] = df.apply(
-        lambda row: (
-            row["execution_price"] - row["decision_price"]
-            if row["side"] == "BUY"
-            else row["decision_price"] - row["execution_price"]
-        ),
-        axis=1,
-    )
+    df.loc[df["side"] == "BUY", "IS"] = (
+    df["execution_price"] - df["decision_price"])
+        
+    df.loc[df["side"] == "SELL", "arrival_slippage"] = (
+        df["decision_price"] - df["execution_price"])
+    
+    df["IS"] = (
+        df["arrival_slippage"] / df["arrival_price"]  ) * 10000
 
     df["IS_bps"] = (df["IS"] / df["decision_price"]) * 10000
 

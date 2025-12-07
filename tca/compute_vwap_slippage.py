@@ -71,11 +71,12 @@ def compute_vwap_slippage(df=None,
         return df
 
     # --- Compute VWAP slippage --- #
-    df["vwap_slippage"] = df.apply(
-        lambda row: (row["execution_price"] - row["vwap"])
-        if row["side"] == "BUY"
-        else (row["vwap"] - row["execution_price"]),
-        axis=1
+    df.loc[df["side"] == "BUY", "vwap_slippage"] = (
+    df["execution_price"] - df["vwap"])
+        
+        # SELL: arrival - exec
+    df.loc[df["side"] == "SELL", "arrival_slippage"] = (
+        df["vwap"] - df["execution_price"])
     )
 
     df["vwap_slippage_bps"] = (df["vwap_slippage"] / df["vwap"]) * 10000

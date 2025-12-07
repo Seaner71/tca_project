@@ -71,14 +71,16 @@ def compute_arrival_slippage(
         return df
 
     # ---- Compute Arrival Slippage ---- #
-    df["arrival_slippage"] = df.apply(
-        lambda row: (
-            row["execution_price"] - row["arrival_price"]
-            if row["side"] == "BUY"
-            else row["arrival_price"] - row["execution_price"]
-        ),
-        axis=1,
-    )
+    df.loc[df["side"] == "BUY", "arrival_slippage"] = (
+    df["execution_price"] - df["arrival_price"])
+        
+        # SELL: arrival - exec
+    df.loc[df["side"] == "SELL", "arrival_slippage"] = (
+        df["arrival_price"] - df["execution_price"])
+    
+    df["arrival_slippage_bps"] = (
+        df["arrival_slippage"] / df["arrival_price"]  ) * 10000
+   
 
     df["arrival_slippage_bps"] = (
         df["arrival_slippage"] / df["arrival_price"]
