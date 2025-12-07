@@ -9,6 +9,9 @@ import os
 import sqlite3
 import pandas as pd
 
+## TODO  is this something that I want? make more sense to have a single summarize function with grouping parameters
+
+
 DB_PATH = os.path.join("..", "database", "tca.db")
 
 def compute_broker_rank(
@@ -98,6 +101,7 @@ def compute_broker_rank(
     
     df["IS_bps"] = (df["IS"] / df["decision_price"]) * 10000
 
+    
     # Summary grouped by broker
     summary = df.groupby("broker").agg(
         trades_count=("order_id", "count"),
