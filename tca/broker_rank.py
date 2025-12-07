@@ -105,7 +105,3 @@ def compute_broker_rank(
     ).reset_index().sort_values(by="avg_arrival_slippage_bps")
 
     return df, summary
-
-# Optional wrapper
-def compute_broker(**kwargs):
-    return compute_broker_rank(**kwargs)
