@@ -7,7 +7,7 @@ Created on Sun Dec  7 13:20:01 2025
 
 from dataclasses import dataclass
 
-## TODO  - add this class to remove the repitition in the function definitions
+## TODO  add this class to remove the repitition in the function definitions
 
 @dataclass
 class TradeFilters:
