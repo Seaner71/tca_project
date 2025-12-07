@@ -54,10 +54,10 @@ from tca.compute_broker import compute_broker
 slippage_df = compute_arrival_slippage()
 
 # Compute Implementation Shortfall
-is_df = compute_IS()
+is_df = compute_arrival_slippage()
 
 # Compute Broker Ranking
-trades_df, broker_summary = compute_broker()
+trades_df, broker_summary = compute_broker_rank()
 ```
 
 3. **Filter and analyze**  
